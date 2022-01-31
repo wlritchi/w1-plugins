@@ -1,0 +1,135 @@
+# Is this the default config? Plugin will not run until this is set to false.
+default_config: false
+
+# Uncomment and restart server. You can specify multiple IRC servers like below
+servers:
+  # Bot name
+  LizardNet:
+    # Host to connect to
+    hostname: irc.lizardirc.org
+    # Port to connect to
+    port: 6664
+    # Password to use to connect to the server
+    server_password: ""
+    # Service to auth with - only NickServ support
+    auth: none
+    # auth: NickServ
+    # Password to use with auth service
+    # auth_password: changeme
+    # Nick to use on server - if nick is taken, will add numbers to the end until it isn't
+    nick: w1_
+    # Login to use
+    login: minecraft
+    # What to return for CTCP finger
+    finger: DragonIRC relay
+    # Time (in ms) to delay messages to prevent spam kicks/bans
+    message_delay: 250
+    # Channels to connect to
+    channels:
+    - "#icles"
+    # Specify a key after a space
+#    - "#rircbots keyhere"
+
+# General settings
+settings:
+  # Use sync chat events instead of async events? This may be required on Windows. It is most likely safe to turn this
+  # to false on Linux.
+  use_sync_chat: true
+  # Link multiple servers and channels together?
+  link_channels: false
+  # What to do when kicked
+  on_kick:
+    # Rejoin when kicked?
+    rejoin: true
+    # How long (in seconds) should we wait to rejoin?
+    time: 1
+  # Color settings
+  colors:
+    # Allow colors to be sent between IRC and MC?
+    allow_colors: true
+    # Parse colors from MC (turn & into section signs?)
+    parse_minecraft_colors: true
+    # Parse Minecraft colors (&) from IRC messages?
+    parse_irc_minecraft_colors: false
+  # Character to use before a message to stop it from being sent to MC
+#  comment_character: "#"
+  # Character to use before IRC commands
+  fantasy_character: "."
+  # Should the bot report player deaths to IRC
+  report_player_deaths: true
+  auth:
+    # Admins that can use privmsg commands - only use temporarily, as they are not verified, so someone could steal your
+    # nick and have access.
+#    admins:
+#    - FastLizard4
+    # Mods that can use in-channel commands - must have chan half-op
+    mods:
+    - FastLizard4
+    - TLUL
+    # Hashes of keys that mods can use to escalate to admin power. This provides security by removing the need to add
+    # users to the admins category, which is unsafe to use for long periods of time. The hashes are in SHA-512 format,
+    # and they can be obtained at https://royaldev.org/royalirc/hash/
+    keys:
+      # Random string of characters to secure the hashes generated above. It is recommended to change this from the
+      # default.
+      salt: "changeme"
+      # Put the hashes for each user here in a user: "hash" format.
+      users:
+        # abc123 with default salt.
+        FastLizard4: "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        TLUL: "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+
+# Message formats
+messages:
+  # Reason to give if no reason is given for things like kicks and parts
+  default_reason: "[No reason]"
+  # IRC -> IRC
+  iti:
+    message: "[{server}/{channel}] <{name}> {message}"
+    action: "[{server}/{channel}] * {name} {message}"
+    join: "[{server}/{channel}] {name} joined the room."
+    part: "[{server}/{channel}] {name} parted the room: {message}."
+    quit: "[{server}] {name} quit the server: {message}."
+    kick: "[{server}/{channel}] {name} was kicked from the room by {kicker}: {message}."
+    nick: "[{server} {name} is now known as {newname}."
+  # IRC -> Bukkit
+  itb:
+    message: "&9[&aIRC&9]&r ({channel}) <{name}> {message}"
+    action: "&9[&aIRC&9]&r ({channel}) * {name} {message}"
+    join: "&9[&aIRC&9]&r ({channel}) {name} joined the channel."
+    part: "&9[&aIRC&9]&r ({channel}) {name} parted the channel: {message}."
+    quit: "&9[&aIRC&9]&r ({server}) {name} quit the server: {message}."
+    kick: "&9[&aIRC&9]&r ({channel}) {name} was kicked by {kicker}: {message}."
+    nick: "&9[&aIRC&9]&r ({server}) {name} changed their nick to {newname}"
+  # Bukkit -> IRC
+  bti:
+    message: "<&2{name}&r> {message}"
+    action: " * &2{name}&r {message}"
+    login: "[&e{name} connected to Minecraft server s2.&r]"
+    quit: "[&e{name} disconnected from Minecraft server s2.&r]"
+    kick: "[&e{name} was kicked from Minecraft server s2: {message}.&r]"
+    say: "[&dServer&r] {message}"
+    # Note: Death message format setting below only used if report_player_deaths above is true.
+    death: "&c[&4{name} died:&r {message}.&c]&r"
+  # Bukkit User -> IRC User
+  btu:
+    # Message to appear to IRC user
+    message: "{name} whispers: {message}"
+    # Message to appear to Bukkit User
+    confirm: "&9[&7{name} &9-> &7{server}/{recipient}&9]&7 {message}"
+  # IRC User -> Bukkit User
+  itu:
+    # Message to appear to Bukkit User
+    message: "&9[&aIRC&9]&r [{server}] {name} whispers: {message}"
+
+# Command aliases for detection of /say and /me - make sure to leave a trailing space after all commands
+commands:
+  bukkit:
+    # Commands to associate with /me in IRC
+    action:
+    - "/action "
+    - "/me "
+    - "/emote "
+    # Commands to associate with /say
+    say:
+    - "/say "
