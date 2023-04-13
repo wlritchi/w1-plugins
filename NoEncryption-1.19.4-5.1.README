@@ -1,0 +1,7 @@
+Poorly named plugin to strip non-repudiation signatures from chat messages.
+
+As a result, player messages cannot be authenticated, and therefore should be rejected by the
+Microsoft centralized reporting infrastructure. Best used in combination with the
+[No Chat Reports](https://www.curseforge.com/minecraft/mc-mods/no-chat-reports) client mod, which
+strips signatures from messages sent by the client before they're even sent to the server, and also
+disables sending chat records to Microsoft.
